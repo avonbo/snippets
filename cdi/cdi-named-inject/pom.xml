@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>avonbo.snippets.java.cdi</groupId>
 	<artifactId>cdi-named-inject</artifactId>
-	<name>CDI-Simple</name>
+	<name>CDI-Named-Inject</name>
 	<description>Snipped of a cdi named injection</description>
 
 
@@ -23,19 +23,16 @@
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se</artifactId>
 			<version>${weld.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.deltaspike.cdictrl</groupId>
 			<artifactId>deltaspike-cdictrl-weld</artifactId>
 			<version>${deltaspike.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.deltaspike.cdictrl</groupId>
 			<artifactId>deltaspike-cdictrl-api</artifactId>
 			<version>${deltaspike.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.deltaspike.core</groupId>
@@ -46,7 +43,6 @@
 			<groupId>org.apache.deltaspike.core</groupId>
 			<artifactId>deltaspike-core-impl</artifactId>
 			<version>${deltaspike.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
