@@ -5,6 +5,8 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <modules>
+  	<module>bpm</module>
 	<module>cdi</module>
+	<module>jndi</module>
   </modules>
 </project>
