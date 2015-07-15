@@ -22,4 +22,9 @@ public class Person {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Person [age=" + this.age + ", name=" + this.name + "]";
+    }
+
 }

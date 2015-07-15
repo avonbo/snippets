@@ -17,18 +17,25 @@ public class RuleEngine {
 
     public ExecutionResultSet execute(Object input) {
 
-        final List<String> firedRules = new ArrayList<String>();
-        final List<Object> outputs = new ArrayList<Object>();
+        final List<RuleExcecution> firedRules = new ArrayList<RuleExcecution>();
 
         for (final Rule r : this.rules) {
-            final Object output = MVEL.executeExpression(r.getCompliledExpression(), input);
-            if (output != null) {
-                outputs.add(output);
+            final Boolean expressionFired =
+                    MVEL.evalToBoolean(r.getExpression(), input);
+            if (expressionFired != null && expressionFired) {
+                Object output = null;
+                if (r.getAction() != null) {
+                    output = MVEL.executeExpression(r.getCompliledAction());
+                }
+
+                final RuleExcecution rEx = new RuleExcecution(input, r, output);
+                firedRules.add(rEx);
             }
-            firedRules.add(r.getFullyQualifiedName());
-            System.out.println(output);
+
         }
 
-        return null;
+        final ExecutionResultSet result = new ExecutionResultSet(firedRules);
+        return result;
     }
+
 }

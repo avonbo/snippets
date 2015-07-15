@@ -1,12 +1,71 @@
 package avonbo.snippets.java.ruleengine.simplerules;
 
-public class ExecutionResultSet<IN> {
+import java.util.ArrayList;
+import java.util.List;
 
-    private boolean open;
-    private final IN input;
+public class ExecutionResultSet {
 
-    protected ExecutionResultSet(IN in) {
-        this.input = in;
+    private final List<RuleExcecution> firedRules;
+
+    protected ExecutionResultSet(List<RuleExcecution> firedRules) {
+        this.firedRules = firedRules;
     }
 
+    public List<String> getFiredFullqualifiedRuleNames() {
+        final List<String> firedRuleNames = new ArrayList<String>();
+        for (final RuleExcecution r : this.firedRules) {
+            firedRuleNames.add(r.getFullyQualifiedName());
+        }
+        return firedRuleNames;
+    }
+
+    public List<String> getFiredRuleNames() {
+        final List<String> firedRuleNames = new ArrayList<String>();
+        for (final RuleExcecution r : this.firedRules) {
+            firedRuleNames.add(r.getName());
+        }
+        return firedRuleNames;
+    }
+
+    public List<Object> getOutputs() {
+        final ArrayList<Object> outs = new ArrayList<Object>();
+        for (final RuleExcecution r : this.firedRules) {
+            outs.add(r.getOutput());
+        }
+        return outs;
+    }
+
+}
+
+class RuleExcecution {
+
+    private final Rule firedRule;
+    private final Object input;
+    private final Object output;
+
+    protected RuleExcecution(Object input, Rule firedRule, Object output) {
+        this.input = input;
+        this.firedRule = firedRule;
+        this.output = output;
+    }
+
+    public Rule getFiredrRule() {
+        return this.firedRule;
+    }
+
+    public String getFullyQualifiedName() {
+        return this.firedRule.getFullyQualifiedName();
+    }
+
+    public Object getInput() {
+        return this.input;
+    }
+
+    public String getName() {
+        return this.firedRule.getName();
+    }
+
+    public Object getOutput() {
+        return this.output;
+    }
 }

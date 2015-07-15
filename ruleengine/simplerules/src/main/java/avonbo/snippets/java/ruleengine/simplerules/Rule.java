@@ -10,11 +10,11 @@ public class Rule implements Comparable<Rule> {
     private final String namespace;
     private final String name;
     private final String expression;
-    private final Serializable compliledExpression;
+    private final Serializable compliledAction;
     private final int priority;
 
-    public Rule(final String name, final String expression, final String action, final int priority,
-            final String namespace) {
+    public Rule(final String name, final String namespace, final int priority, final String expression,
+            final String action) {
 
         if (name == null) {
             throw new AssertionError("name must not be null");
@@ -28,7 +28,11 @@ public class Rule implements Comparable<Rule> {
         this.priority = priority;
         this.expression = expression;
         this.action = action;
-        this.compliledExpression = MVEL.compileExpression(expression);
+        this.compliledAction = MVEL.compileExpression(action);
+    }
+
+    public Rule(final String name, final int priority, final String expression, final String action) {
+        this(name, null, priority, expression, action);
     }
 
     public String getFullyQualifiedName() {
@@ -38,11 +42,10 @@ public class Rule implements Comparable<Rule> {
         return this.name;
     }
 
-    @Override
     public int compareTo(Rule otherRule) {
         int comparator = 0;
         if (this.priority != otherRule.priority) {
-            comparator = this.priority > otherRule.priority ? 1 : -1;
+            comparator = this.priority > otherRule.priority ? -1 : 1;
         } else {
             comparator = this.getFullyQualifiedName().compareTo(otherRule.getFullyQualifiedName());
         }
@@ -90,7 +93,14 @@ public class Rule implements Comparable<Rule> {
 
     @Override
     public String toString() {
-        return "Rule [" + this.namespace + "." + this.name + "] when " + this.expression + " then "
+        String qualifiedName = null;
+        if (this.namespace != null) {
+            qualifiedName = this.namespace + "." + this.name;
+        } else {
+            qualifiedName = this.name;
+        }
+
+        return "Rule [" + qualifiedName + "] when " + this.expression + " then "
                 + this.action;
     }
 
@@ -114,8 +124,8 @@ public class Rule implements Comparable<Rule> {
         return this.priority;
     }
 
-    public Serializable getCompliledExpression() {
-        return compliledExpression;
+    public Serializable getCompliledAction() {
+        return this.compliledAction;
     }
 
 }
