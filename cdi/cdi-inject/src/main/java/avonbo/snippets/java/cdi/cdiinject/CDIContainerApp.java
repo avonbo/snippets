@@ -8,23 +8,23 @@ import org.apache.deltaspike.cdise.api.ContextControl;
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 public class CDIContainerApp {
-	
+
 	public static CDIContainerApp INSTANCE;
-	
-	public static void init(){
-		if(INSTANCE!=null){
+
+	public static void init() {
+		if (INSTANCE != null) {
 			try {
 				INSTANCE.finalize();
-			} catch (Throwable e) {
+			} catch (final Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			INSTANCE=null;
+			INSTANCE = null;
 		}
 		INSTANCE = new CDIContainerApp();
 	}
 
-	private CdiContainer cdiContainer;
+	private final CdiContainer cdiContainer;
 
 	public CDIContainerApp() {
 
@@ -35,7 +35,7 @@ public class CDIContainerApp {
 		// but the container does not automatically start all CDI Contexts.
 		// Contexts must be started independently using the provided
 		// ContextControl class
-		ContextControl contextControl = cdiContainer.getContextControl();
+		final ContextControl contextControl = cdiContainer.getContextControl();
 		contextControl.startContext(ApplicationScoped.class);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -46,9 +46,9 @@ public class CDIContainerApp {
 		});
 
 	}
-	
+
 	public <T> T getBean(Class<T> type) {
-		
+
 		return BeanProvider.getContextualReference(type, false);
-    }
+	}
 }

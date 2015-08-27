@@ -5,11 +5,12 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <modules>
+  	<module>actor</module>
 	<module>agents</module>
   	<module>bpm</module>
 	<module>cdi</module>
 	<module>jndi</module>
 	<module>osgi</module>
-
+    <module>ruleengine</module>
   </modules>
 </project>

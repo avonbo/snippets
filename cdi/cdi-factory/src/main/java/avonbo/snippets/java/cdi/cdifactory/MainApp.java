@@ -8,13 +8,12 @@ public class MainApp {
 	public static void main(String[] args) {
 		CDIContainerApp.init();
 
-		CoffeeMachine coffeeMaker = CDIContainerApp.INSTANCE
-				.getBean(CoffeeMachine.class);
-		Coffee coffee = coffeeMaker.brewCoffee();
+		final CoffeeMachine coffeeMaker = CDIContainerApp.INSTANCE.getBean(CoffeeMachine.class);
+		final Coffee coffee = coffeeMaker.brewCoffee();
 
 		System.out.println("Brewed " + coffee.getName());
-		
-		Coffee coffee2 = coffeeMaker.brewCoffee();
+
+		final Coffee coffee2 = coffeeMaker.brewCoffee();
 
 		System.out.println("Brewed " + coffee2.getName());
 

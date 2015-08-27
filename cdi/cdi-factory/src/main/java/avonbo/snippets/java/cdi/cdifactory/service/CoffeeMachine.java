@@ -10,10 +10,10 @@ import avonbo.snippets.java.cdi.cdifactory.domain.coffee.Coffee;
 @Singleton
 public class CoffeeMachine {
 
-	@Inject	
+	@Inject
 	@Named("espresso")
 	CoffeeMaker coffeeMaker;
-	
+
 	public Coffee brewCoffee() {
 		return coffeeMaker.brewCoffee();
 	}

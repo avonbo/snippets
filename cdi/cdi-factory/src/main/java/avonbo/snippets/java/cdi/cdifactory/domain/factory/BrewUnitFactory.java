@@ -11,13 +11,13 @@ public class BrewUnitFactory {
 
 	@Produces
 	@Named("espresso")
-	public CoffeeMaker produceEspressoMaker(){
+	public CoffeeMaker produceEspressoMaker() {
 		return new EspressoMaker();
 	}
-	
+
 	@Produces
 	@Named("lungo")
-	public CoffeeMaker produceLungoMaker(){
+	public CoffeeMaker produceLungoMaker() {
 		return new LungoMaker();
 	}
 }

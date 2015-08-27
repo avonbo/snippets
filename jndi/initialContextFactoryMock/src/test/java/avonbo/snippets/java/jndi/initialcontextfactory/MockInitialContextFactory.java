@@ -19,8 +19,7 @@ public class MockInitialContextFactory implements InitialContextFactory {
 				Map<String, Object> bindings = new HashMap<String, Object>();
 
 				@Override
-				public void bind(String name, Object obj)
-						throws NamingException {
+				public void bind(String name, Object obj) throws NamingException {
 					bindings.put(name, obj);
 				}
 
@@ -30,11 +29,10 @@ public class MockInitialContextFactory implements InitialContextFactory {
 				}
 			};
 
-			String contextFactoryName = MockInitialContextFactory.class.getName();
-			System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
-					contextFactoryName);
+			final String contextFactoryName = MockInitialContextFactory.class.getName();
+			System.setProperty(Context.INITIAL_CONTEXT_FACTORY, contextFactoryName);
 
-		} catch (NamingException e) { // can't happen?
+		} catch (final NamingException e) { // can't happen?
 			throw new RuntimeException(e);
 		}
 	}
@@ -42,7 +40,7 @@ public class MockInitialContextFactory implements InitialContextFactory {
 	public static void bind(String name, Object obj) {
 		try {
 			context.bind(name, obj);
-		} catch (NamingException e) { // can't happen.
+		} catch (final NamingException e) { // can't happen.
 			throw new RuntimeException(e);
 		}
 	}
@@ -51,8 +49,7 @@ public class MockInitialContextFactory implements InitialContextFactory {
 		return context;
 	}
 
-	public Context getInitialContext(Hashtable<?, ?> environment)
-			throws NamingException {
+	public Context getInitialContext(Hashtable<?, ?> environment) throws NamingException {
 		return context;
 	}
 

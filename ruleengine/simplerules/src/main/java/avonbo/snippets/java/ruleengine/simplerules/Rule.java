@@ -6,126 +6,125 @@ import org.mvel2.MVEL;
 
 public class Rule implements Comparable<Rule> {
 
-    private final String action;
-    private final String namespace;
-    private final String name;
-    private final String expression;
-    private final Serializable compliledAction;
-    private final int priority;
+	private final String action;
+	private final String namespace;
+	private final String name;
+	private final String expression;
+	private final Serializable compliledAction;
+	private final int priority;
 
-    public Rule(final String name, final String namespace, final int priority, final String expression,
-            final String action) {
+	public Rule(final String name, final int priority, final String expression, final String action) {
+		this(name, null, priority, expression, action);
+	}
 
-        if (name == null) {
-            throw new AssertionError("name must not be null");
-        }
-        if (expression == null) {
-            throw new AssertionError("expression must not be null");
-        }
+	public Rule(final String name, final String namespace, final int priority, final String expression,
+			final String action) {
 
-        this.namespace = namespace;
-        this.name = name;
-        this.priority = priority;
-        this.expression = expression;
-        this.action = action;
-        this.compliledAction = MVEL.compileExpression(action);
-    }
+		if (name == null) {
+			throw new AssertionError("name must not be null");
+		}
+		if (expression == null) {
+			throw new AssertionError("expression must not be null");
+		}
 
-    public Rule(final String name, final int priority, final String expression, final String action) {
-        this(name, null, priority, expression, action);
-    }
+		this.namespace = namespace;
+		this.name = name;
+		this.priority = priority;
+		this.expression = expression;
+		this.action = action;
+		compliledAction = MVEL.compileExpression(action);
+	}
 
-    public String getFullyQualifiedName() {
-        if (this.namespace != null && !"".equals(this.namespace)) {
-            return this.namespace + "." + this.name;
-        }
-        return this.name;
-    }
+	public int compareTo(Rule otherRule) {
+		int comparator = 0;
+		if (priority != otherRule.priority) {
+			comparator = priority > otherRule.priority ? -1 : 1;
+		} else {
+			comparator = this.getFullyQualifiedName().compareTo(otherRule.getFullyQualifiedName());
+		}
 
-    public int compareTo(Rule otherRule) {
-        int comparator = 0;
-        if (this.priority != otherRule.priority) {
-            comparator = this.priority > otherRule.priority ? -1 : 1;
-        } else {
-            comparator = this.getFullyQualifiedName().compareTo(otherRule.getFullyQualifiedName());
-        }
+		return comparator;
+	}
 
-        return comparator;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final Rule other = (Rule) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		if (namespace == null) {
+			if (other.namespace != null) {
+				return false;
+			}
+		} else if (!namespace.equals(other.namespace)) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.namespace == null) ? 0 : this.namespace.hashCode());
-        return result;
-    }
+	public String getAction() {
+		return action;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final Rule other = (Rule) obj;
-        if (this.name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!this.name.equals(other.name)) {
-            return false;
-        }
-        if (this.namespace == null) {
-            if (other.namespace != null) {
-                return false;
-            }
-        } else if (!this.namespace.equals(other.namespace)) {
-            return false;
-        }
-        return true;
-    }
+	public Serializable getCompliledAction() {
+		return compliledAction;
+	}
 
-    @Override
-    public String toString() {
-        String qualifiedName = null;
-        if (this.namespace != null) {
-            qualifiedName = this.namespace + "." + this.name;
-        } else {
-            qualifiedName = this.name;
-        }
+	public String getExpression() {
+		return expression;
+	}
 
-        return "Rule [" + qualifiedName + "] when " + this.expression + " then "
-                + this.action;
-    }
+	public String getFullyQualifiedName() {
+		if (namespace != null && !"".equals(namespace)) {
+			return namespace + "." + name;
+		}
+		return name;
+	}
 
-    public String getAction() {
-        return this.action;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getNamespace() {
-        return this.namespace;
-    }
+	public String getNamespace() {
+		return namespace;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public int getPriority() {
+		return priority;
+	}
 
-    public String getExpression() {
-        return this.expression;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (name == null ? 0 : name.hashCode());
+		result = prime * result + (namespace == null ? 0 : namespace.hashCode());
+		return result;
+	}
 
-    public int getPriority() {
-        return this.priority;
-    }
+	@Override
+	public String toString() {
+		String qualifiedName = null;
+		if (namespace != null) {
+			qualifiedName = namespace + "." + name;
+		} else {
+			qualifiedName = name;
+		}
 
-    public Serializable getCompliledAction() {
-        return this.compliledAction;
-    }
+		return "Rule [" + qualifiedName + "] when " + expression + " then " + action;
+	}
 
 }

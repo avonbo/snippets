@@ -10,7 +10,7 @@ import avonbo.snippets.java.cdi.cdinamedinject.domain.CoffeeFactory;
 @Singleton
 public class EspressoCoffeeMaker {
 
-	@Inject	
+	@Inject
 	@Named("espresso")
 	CoffeeFactory coffeeFactory;
 

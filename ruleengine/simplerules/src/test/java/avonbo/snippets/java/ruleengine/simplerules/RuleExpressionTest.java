@@ -10,126 +10,126 @@ import org.junit.Test;
 
 public class RuleExpressionTest {
 
-    @Test
-    public void checkOneRuleFired() {
+	@Test
+	public void checkMultipleConditionFired() {
 
-        final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
+		final Rule r1 = new Rule("firstRule", 0, "age > 18 && name == 'Alex'", null);
 
-        final RuleEngine engine = new RuleEngine();
-        engine.addRule(r1);
+		final RuleEngine engine = new RuleEngine();
+		engine.addRule(r1);
 
-        final Person p = new Person();
-        p.setAge(20);
-        p.setName("Alex");
+		final Person p = new Person();
+		p.setAge(20);
+		p.setName("Alex");
 
-        final ExecutionResultSet resultSet = engine.execute(p);
+		final ExecutionResultSet resultSet = engine.execute(p);
 
-        final List<String> firedRuleNames = resultSet.getFiredRuleNames();
+		final List<String> firedRuleNames = resultSet.getFiredRuleNames();
 
-        final boolean firstRuleFired = firedRuleNames.contains("firstRule");
+		final boolean firstRuleFired = firedRuleNames.contains("firstRule");
 
-        assertTrue("Rule with name firstRule not fired", firstRuleFired);
+		assertTrue("Rule with name firstRule not fired", firstRuleFired);
 
-    }
+	}
 
-    @Test
-    public void checkOneRuleNotFired() {
+	@Test
+	public void checkMultipleRulesFired() {
 
-        final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
+		final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
+		final Rule r2 = new Rule("secondRule", 0, "name == 'Alex'", null);
 
-        final RuleEngine engine = new RuleEngine();
-        engine.addRule(r1);
+		final RuleEngine engine = new RuleEngine();
+		engine.addRule(r1);
+		engine.addRule(r2);
 
-        final Person p = new Person();
-        p.setAge(5);
-        p.setName("Otto");
+		final Person p = new Person();
+		p.setAge(20);
+		p.setName("Alex");
 
-        final ExecutionResultSet resultSet = engine.execute(p);
+		final ExecutionResultSet resultSet = engine.execute(p);
 
-        final List<String> firedRuleNames = resultSet.getFiredRuleNames();
+		final List<String> firedRuleNames = resultSet.getFiredRuleNames();
 
-        final boolean firstRuleFired = firedRuleNames.contains("firstRule");
+		assertEquals("Expected two fired rules", 2, firedRuleNames.size());
 
-        assertFalse("Rule with name firstRule  fired", firstRuleFired);
+		final boolean firstRuleFired = firedRuleNames.contains("firstRule");
+		assertTrue("Rule with name firstRule not fired", firstRuleFired);
 
-    }
+		final boolean secondRuleFired = firedRuleNames.contains("secondRule");
+		assertTrue("Rule with name secondRule not fired", secondRuleFired);
 
-    @Test
-    public void checkMultipleConditionFired() {
+	}
 
-        final Rule r1 = new Rule("firstRule", 0, "age > 18 && name == 'Alex'", null);
+	@Test
+	public void checkOneRuleFired() {
 
-        final RuleEngine engine = new RuleEngine();
-        engine.addRule(r1);
+		final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
 
-        final Person p = new Person();
-        p.setAge(20);
-        p.setName("Alex");
+		final RuleEngine engine = new RuleEngine();
+		engine.addRule(r1);
 
-        final ExecutionResultSet resultSet = engine.execute(p);
+		final Person p = new Person();
+		p.setAge(20);
+		p.setName("Alex");
 
-        final List<String> firedRuleNames = resultSet.getFiredRuleNames();
+		final ExecutionResultSet resultSet = engine.execute(p);
 
-        final boolean firstRuleFired = firedRuleNames.contains("firstRule");
+		final List<String> firedRuleNames = resultSet.getFiredRuleNames();
 
-        assertTrue("Rule with name firstRule not fired", firstRuleFired);
+		final boolean firstRuleFired = firedRuleNames.contains("firstRule");
 
-    }
+		assertTrue("Rule with name firstRule not fired", firstRuleFired);
 
-    @Test
-    public void checkMultipleRulesFired() {
+	}
 
-        final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
-        final Rule r2 = new Rule("secondRule", 0, "name == 'Alex'", null);
+	@Test
+	public void checkOneRuleNotFired() {
 
-        final RuleEngine engine = new RuleEngine();
-        engine.addRule(r1);
-        engine.addRule(r2);
+		final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
 
-        final Person p = new Person();
-        p.setAge(20);
-        p.setName("Alex");
+		final RuleEngine engine = new RuleEngine();
+		engine.addRule(r1);
 
-        final ExecutionResultSet resultSet = engine.execute(p);
+		final Person p = new Person();
+		p.setAge(5);
+		p.setName("Otto");
 
-        final List<String> firedRuleNames = resultSet.getFiredRuleNames();
+		final ExecutionResultSet resultSet = engine.execute(p);
 
-        assertEquals("Expected two fired rules", 2, firedRuleNames.size());
+		final List<String> firedRuleNames = resultSet.getFiredRuleNames();
 
-        final boolean firstRuleFired = firedRuleNames.contains("firstRule");
-        assertTrue("Rule with name firstRule not fired", firstRuleFired);
+		final boolean firstRuleFired = firedRuleNames.contains("firstRule");
 
-        final boolean secondRuleFired = firedRuleNames.contains("secondRule");
-        assertTrue("Rule with name secondRule not fired", secondRuleFired);
+		assertFalse("Rule with name firstRule  fired", firstRuleFired);
 
-    }
+	}
 
-    @Test
-    public void checkPriorityRulesFired() {
+	@Test
+	public void checkPriorityRulesFired() {
 
-        final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
-        final Rule r2 = new Rule("secondRule", 10, "name == 'Alex'", null);
+		final Rule r1 = new Rule("firstRule", 0, "age > 18", null);
+		final Rule r2 = new Rule("secondRule", 10, "name == 'Alex'", null);
 
-        final RuleEngine engine = new RuleEngine();
-        engine.addRule(r1);
-        engine.addRule(r2);
+		final RuleEngine engine = new RuleEngine();
+		engine.addRule(r1);
+		engine.addRule(r2);
 
-        final Person p = new Person();
-        p.setAge(20);
-        p.setName("Alex");
+		final Person p = new Person();
+		p.setAge(20);
+		p.setName("Alex");
 
-        final ExecutionResultSet resultSet = engine.execute(p);
+		final ExecutionResultSet resultSet = engine.execute(p);
 
-        final List<String> firedRuleNames = resultSet.getFiredRuleNames();
+		final List<String> firedRuleNames = resultSet.getFiredRuleNames();
 
-        assertEquals("Expected two fired rules", 2, firedRuleNames.size());
+		assertEquals("Expected two fired rules", 2, firedRuleNames.size());
 
-        final String firstFiredRule = firedRuleNames.get(0);
-        assertTrue("Rule with name firstRule not fired as first", "secondRule".equals(firstFiredRule));
+		final String firstFiredRule = firedRuleNames.get(0);
+		assertTrue("Rule with name firstRule not fired as first", "secondRule".equals(firstFiredRule));
 
-        final String secondFiredRule = firedRuleNames.get(1);
-        assertTrue("Rule with name secondRule not fired as second", "firstRule".equals(secondFiredRule));
+		final String secondFiredRule = firedRuleNames.get(1);
+		assertTrue("Rule with name secondRule not fired as second", "firstRule".equals(secondFiredRule));
 
-    }
+	}
 
 }

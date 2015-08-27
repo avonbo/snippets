@@ -2,10 +2,10 @@ package avonbo.snippets.java.jndi.initialcontextfactory;
 
 public class MyServer {
 
-	private String sayHello;
+	private final String sayHello;
 
 	public MyServer(String str) {
-		this.sayHello = str;
+		sayHello = str;
 	}
 
 	public String sayHello() {

@@ -8,17 +8,18 @@ import avonbo.snippets.java.actor.impl.DisruptorSEActor;
 
 public class TestSending {
 
-    @Test
-    public void testSend() {
-        final ReceivedMessageCheckingBehaviour behaviour = new ReceivedMessageCheckingBehaviour();
+	@Test
+	public void testSend() {
+		final ReceivedMessageCheckingBehaviour behaviour = new ReceivedMessageCheckingBehaviour();
 
-        final Actor<String> a = new DisruptorSEActor<>(behaviour);
-        try {
-            a.publish("testing");
-            Thread.sleep(1000);
-        } catch (final InterruptedException e) {}
+		final Actor<String> a = new DisruptorSEActor<>(behaviour);
+		try {
+			a.publish("testing");
+			Thread.sleep(1000);
+		} catch (final InterruptedException e) {
+		}
 
-        assertEquals("testing", behaviour.getMessage());
-    }
+		assertEquals("testing", behaviour.getMessage());
+	}
 
 }

@@ -8,9 +8,8 @@ public class MainApp {
 	public static void main(String[] args) {
 		CDIContainerApp.init();
 
-		EspressoCoffeeMaker coffeeMaker = CDIContainerApp.INSTANCE
-				.getBean(EspressoCoffeeMaker.class);
-		Coffee coffee = coffeeMaker.brewCoffee();
+		final EspressoCoffeeMaker coffeeMaker = CDIContainerApp.INSTANCE.getBean(EspressoCoffeeMaker.class);
+		final Coffee coffee = coffeeMaker.brewCoffee();
 
 		System.out.println("Brewed " + coffee.name);
 
