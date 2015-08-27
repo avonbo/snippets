@@ -12,10 +12,20 @@ import com.lmax.disruptor.dsl.Disruptor;
 import avonbo.snippets.java.actor.Actor;
 import avonbo.snippets.java.actor.Behavior;
 
+/**
+ * Implements an actor with the disruptor framwork.
+ *
+ * @author Alexander von Boguszewski
+ *
+ * @param <T>
+ */
 public final class DisruptorSEActor<T> implements Actor<T> {
 
 	private static int BUFFERSIZE = 1024;
 
+	/**
+	 * all behaviors performed after call publish
+	 */
 	private final List<Behavior<T>> behaviors;
 	private final RingBuffer<ActorMessage<T>> ringBuffer;
 
@@ -85,7 +95,7 @@ public final class DisruptorSEActor<T> implements Actor<T> {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see avonbo.snippets.java.actor.Actor#publish(T)
 	 */
 	@Override
