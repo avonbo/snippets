@@ -1,5 +1,11 @@
-package avonbo.snippets.java.actor.impl;
+package avonbo.snippets.java.actor.actorimpl;
 
+/**
+ * A generic envolop for messages
+ * @author Alexander von Boguszewski
+ *
+ * @param <T>
+ */
 public class ActorMessage<T> {
 
 	private T body;

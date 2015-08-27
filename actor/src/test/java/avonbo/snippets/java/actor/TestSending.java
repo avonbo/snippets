@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import avonbo.snippets.java.actor.impl.DisruptorSEActor;
+import avonbo.snippets.java.actor.actorimpl.disruptor.DisruptorSEActor;
 
 public class TestSending {
 

@@ -1,14 +1,15 @@
-package avonbo.snippets.java.actor.impl;
+package avonbo.snippets.java.actor.actorimpl.disruptor;
 
 import com.lmax.disruptor.EventHandler;
 
 import avonbo.snippets.java.actor.Behavior;
+import avonbo.snippets.java.actor.actorimpl.ActorMessage;
 
-public class ActorMessageEventHandler<T> implements EventHandler<ActorMessage<T>> {
+public class DisruptorMessageEventHandler<T> implements EventHandler<ActorMessage<T>> {
 
 	Behavior<T> behavior;
 
-	public ActorMessageEventHandler(Behavior<T> behavior) {
+	public DisruptorMessageEventHandler(Behavior<T> behavior) {
 		this.behavior = behavior;
 	}
 
