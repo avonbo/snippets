@@ -9,8 +9,9 @@
 	<module>agents</module>
   	<module>bpm</module>
 	<module>cdi</module>
+	<module>java8</module>
 	<module>jndi</module>
 	<module>osgi</module>
-    <module>ruleengine</module>
+    <module>ruleengine</module>	
   </modules>
 </project>

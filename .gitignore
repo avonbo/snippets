@@ -39,3 +39,11 @@ osgi/.project
 osgi/blueprint/.classpath
 
 osgi/blueprint/.project
+
+*.tis
+
+*.prx
+
+*.prx
+
+*.tii
