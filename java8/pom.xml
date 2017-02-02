@@ -9,6 +9,7 @@
   <artifactId>java8</artifactId>
   <packaging>pom</packaging>  
   <modules>
+	<module>date</module>
 	<module>lambda</module>
   </modules>
 </project>

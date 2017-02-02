@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -37,7 +38,18 @@ public class FirstLambda {
 
 		greeter.accept(p);
 
-		return p;
+
+		final Optional<Person> optional = Optional.of(p);
+
+		optional.ifPresent((p1) -> System.out.println(p1.toString()));
+
+		// true
+		if(optional.isPresent()){
+			return optional.get();
+		} else {
+			return optional.orElse(new Person());
+		}
+
 	}
 
 	public Person createPerson(String foreName, String lastName){
